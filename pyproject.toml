@@ -1,0 +1,46 @@
+[project]
+name = "github-pr-mcp"
+version = "0.1.0"
+description = "MCP server for monitoring GitHub pull requests with background task support"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastmcp>=2.14.2",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["github_pr_mcp"]
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.ty.environment]
+python = ".venv"
+
+[tool.pytest.ini_options]
+addopts = "--cov=github_pr_mcp --cov=main --cov-report=term-missing --cov-fail-under=100"
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+source = ["github_pr_mcp", "."]
+omit = ["tests/*", ".venv/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "if __name__ == .__main__.:",
+    "pragma: no cover",
+]
+
+[dependency-groups]
+dev = [
+    "prek>=0.2.27",
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=7.0.0",
+    "respx>=0.22.0",
+    "ruff>=0.14.10",
+    "ty>=0.0.9",
+]
