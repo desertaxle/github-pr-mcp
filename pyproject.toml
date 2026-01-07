@@ -8,8 +8,12 @@ dependencies = [
     "fastmcp>=2.14.2",
 ]
 
+[project.scripts]
+github-pr-mcp = "main:mcp.run"
+
 [tool.hatch.build.targets.wheel]
 packages = ["github_pr_mcp"]
+include = ["main.py"]
 
 [tool.ruff]
 target-version = "py314"

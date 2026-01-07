@@ -16,23 +16,13 @@ A FastMCP server that monitors GitHub pull requests until they reach a terminal 
 Add the server to Claude Code directly from GitHub:
 
 ```bash
-claude mcp add github-pr-monitor -- uvx fastmcp run https://github.com/desertaxle/github-pr-mcp/blob/main/main.py
+claude mcp add github-pr-monitor -e GITHUB_TOKEN=ghp_your_token_here -- uvx --from git+https://github.com/desertaxle/github-pr-mcp github-pr-mcp
 ```
 
-To include GitHub authentication, add to your `~/.claude/settings.json`:
+Or without authentication (rate-limited to 60 requests/hour):
 
-```json
-{
-  "mcpServers": {
-    "github-pr-monitor": {
-      "command": "uvx",
-      "args": ["fastmcp", "run", "https://github.com/desertaxle/github-pr-mcp/blob/main/main.py"],
-      "env": {
-        "GITHUB_TOKEN": "ghp_your_token_here"
-      }
-    }
-  }
-}
+```bash
+claude mcp add github-pr-monitor -- uvx --from git+https://github.com/desertaxle/github-pr-mcp github-pr-mcp
 ```
 
 Once configured, you can ask Claude Code to monitor PRs:
@@ -82,7 +72,7 @@ Monitors a GitHub PR until it reaches a terminal state.
 
 ## Authentication
 
-Set `GITHUB_TOKEN` in the MCP server config (as shown above) for authenticated API access (5,000 requests/hour). Without it, the server uses unauthenticated access (60 requests/hour).
+Authenticated access (5,000 requests/hour) requires a `GITHUB_TOKEN`. Without it, the server uses unauthenticated access (60 requests/hour). Pass the token via the `-e` flag as shown above.
 
 ## Development
 
